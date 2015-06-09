@@ -16,12 +16,15 @@ public class Application extends Controller {
 
     public static Result index() {
 
-        return ok(index.render(""));
+        return ok(index.render(" for appcivist"));
+
+        //
     }
 
     public static Result addElection() {
         Election election = Form.form(Election.class).bindFromRequest().get();
         election.save();
+        Logger.info("Election has been saved. New election with id = " + election.getId());
         return redirect(routes.Application.index());
 
     }

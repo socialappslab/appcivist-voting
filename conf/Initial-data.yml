@@ -1,0 +1,17 @@
+---
+
+# Users
+
+  - &u1
+
+
+# Proposals
+
+  - &p1 !!models.Proposal
+    propName: "Proposal 1"
+    propBody: "This is a modest proposal to do x with y."
+    propAuthor: RyanC
+
+# Elections
+
+  - &e1 !!models.Election

@@ -1,0 +1,16 @@
+@(message: String)
+
+@main("Welcome to Play") {
+
+    <form action="@routes.Application.addElection()" method="post">
+        Name: <input type="text" name="electionName" />
+        <br>
+        Description: <input type="text" name="description" />
+
+
+
+        <button>Add Election @message
+        </button>
+    </form>
+
+}
