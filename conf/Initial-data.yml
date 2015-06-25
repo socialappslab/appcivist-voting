@@ -1,0 +1,51 @@
+---
+
+# Users
+
+  - &u1 !!models.User
+    userID: 1
+    userName: "Ryan"
+    elections:
+     - *e1
+     - *e2
+
+  - &u2 !!models.User
+    userID: 2
+    userName: "Dan"
+    elections:
+     - *e1
+
+# Proposals
+
+  - &p1 !!models.Proposal
+    propName: "Proposal 1"
+    propBody: "This is a modest proposal to do x with y."
+    propAuthor:
+     - *u1
+    propVotes: 0
+    election:
+     - *e1
+
+  - &p2 !!models.Proposal
+    propName: "The great proposal"
+    propBody: "We propose to propose new things."
+    propAuthor:
+     - *u1
+    propVotes: 2
+    election:
+     - *e1
+
+# Elections
+
+  - &e1 !!models.Election
+  electionId: 1
+  description: "We are deciding which proposal is best proposed."
+  location: "The land of many proposals."
+  electionType: "Plurality"
+  startDate:
+  proposals:
+   - *p1
+   - *p2
+  users:
+   - *u1
+   - *u2
