@@ -3,14 +3,15 @@
 
 # --- !Ups
 
-create table ELECTION (
-  election_id               integer auto_increment not null,
+create table election (
+  election_id               integer not null,
   election_name             varchar(255),
   description               varchar(255),
   location                  varchar(255),
   election_type             varchar(255),
+  election_url              varchar(255),
   start_date                timestamp,
-  constraint pk_ELECTION primary key (election_id))
+  constraint pk_election primary key (election_id))
 ;
 
 create table proposal (
@@ -28,11 +29,13 @@ create table user (
   constraint pk_user primary key (user_id))
 ;
 
+create sequence election_seq;
+
 create sequence proposal_seq;
 
 create sequence user_seq;
 
-alter table proposal add constraint fk_proposal_election_1 foreign key (election_election_id) references ELECTION (election_id) on delete restrict on update restrict;
+alter table proposal add constraint fk_proposal_election_1 foreign key (election_election_id) references election (election_id) on delete restrict on update restrict;
 create index ix_proposal_election_1 on proposal (election_election_id);
 
 
@@ -41,13 +44,15 @@ create index ix_proposal_election_1 on proposal (election_election_id);
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
-drop table if exists ELECTION;
+drop table if exists election;
 
 drop table if exists proposal;
 
 drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists election_seq;
 
 drop sequence if exists proposal_seq;
 

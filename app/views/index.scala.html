@@ -3,13 +3,24 @@
 @main("Welcome to Play") {
 
     <form action="@routes.Application.addElection()" method="post">
+        <br>
         Name: <input type="text" name="electionName" />
         <br>
         Description: <input type="text" name="description" />
-
-
+        <br>
+        Location: <input type="text" name="location"/>
+        <br>
+        Type: <input type="text" name="type"/>
 
         <button>Add Election @message
+        </button>
+    </form>
+
+    <p>
+
+    <form action="@routes.Application.getElections()" method="get">
+        <button>
+            See Elections
         </button>
     </form>
 

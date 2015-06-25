@@ -13,12 +13,12 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="ELECTION")
+//@Table(name="ELECTION")
 public class Election extends Model {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int electionId;
+    @GeneratedValue
+    private Integer electionId;
 
     private String electionName;
 
@@ -28,27 +28,54 @@ public class Election extends Model {
 
     private String electionType;
 
+    private String electionURL;
+
     private Date startDate;          // date methods will allow for start/end times of elections
 
-    @OneToMany(targetEntity = Proposal.class, mappedBy="election", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="election", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Proposal> proposals = new ArrayList<Proposal>();
 
     private List<User> users = new ArrayList<User>();
 
 
+    public static Model.Finder<Integer, Election> find = new Model.Finder<Integer, Election>(
+        Integer.class, Election.class);
 
+    public static Election read(Integer electionId) {
+        return find.ref(electionId);
+    }
 
+    public static Election createObject(Election election) {
+        election.save();
+        return election;
+    }
 
+    public static void delete(Integer id) {
+        find.ref(id).delete();
+    }
+
+    public static void update(Integer id) {
+        find.ref(id).update();
+    }
+
+    public static Integer findNextID() {
+        return find.nextId();
+    }
+
+    public static void create(Election election) {
+        election.save();
+        election.refresh();
+    }
 
     /************************************************************************************************
      * Getters & Setters
      ************************************************************************************************/
 
-    public int getId() {
+    public Integer getId() {
         return electionId;
     }
 
-    public void setId(int id) { electionId = id; }
+    public void setId(Integer id) { electionId = id; }
 
 
 
@@ -61,7 +88,13 @@ public class Election extends Model {
     }
 
 
+    public String getElectionURL() {
+        return electionURL;
+    }
 
+    public void setElectionURL(String electionURL) {
+        this.electionURL = electionURL;
+    }
 
     public String getDescription() {
         return description;
@@ -88,7 +121,7 @@ public class Election extends Model {
     public String getElectionType() { return electionType; }
 
     public void setElectionType(String electionType)
-    { if (electionType != "Plurality") {                            // temporarily only allows plurality vote
+    { if (electionType != "Plurality") {
         throw new IllegalArgumentException("Bad election type");
         }
         else { this.electionType = electionType; }}
@@ -114,6 +147,8 @@ public class Election extends Model {
         this.users.add(newUser);}
 
 
+
+
     /************************************************************************************************
      * Methods
      ************************************************************************************************/
@@ -121,12 +156,14 @@ public class Election extends Model {
 
 
     public Proposal getWinningProposal(List<Proposal> proplist) {
-        int highestVote = proplist.get(0).getPropVotes();
-        int highestIndex = 0;
-        for (int i = 1; i < proplist.size(); i++) {
+        Integer highestVote = proplist.get(0).getPropVotes();
+        Integer highestIndex = 0;
+        for (Integer i = 1; i < proplist.size(); i++) {
             if (proplist.get(i).getPropVotes() > highestVote)
                 highestIndex = i;
         }
         return proplist.get(highestIndex);
     }
+
+
 }

@@ -5,6 +5,8 @@
 # Home page
 GET         /                    controllers.Application.index()
 
+GET         /elections/:id       controllers.Application.getElectionID(id: Integer)
+
 GET         /elections           controllers.Application.getElections()
 
 POST        /election            controllers.Application.addElection()

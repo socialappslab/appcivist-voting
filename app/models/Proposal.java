@@ -11,12 +11,12 @@ import java.util.ArrayList;
  */
 
 @Entity
-@Table
+//@Table
 public class Proposal extends Model {
 
     @Id
     @GeneratedValue
-    private int propId;
+    private Integer propId;
 
     private String propName;
 
@@ -24,9 +24,9 @@ public class Proposal extends Model {
 
     private User propAuthor;
 
-    private int propVotes;
+    private Integer propVotes;
 
-    @ManyToOne(targetEntity = Election.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Election election;
 
 
@@ -39,10 +39,10 @@ public class Proposal extends Model {
     public User getPropAuthor() { return propAuthor; }
     public void setPropAuthor(User propAuthor) { this.propAuthor = propAuthor; }
 
-    public int getPropId() {
+    public Integer getPropId() {
         return propId;
     }
-    public void setPropID(int PropID) {
+    public void setPropID(Integer PropID) {
         this.propId = PropID;
     }
 
@@ -67,11 +67,11 @@ public class Proposal extends Model {
         this.election = NewElection;
     }
 
-    public int getPropVotes() {
+    public Integer getPropVotes() {
         return propVotes;
     }
 
-    public void setPropVotes(int propVotes) {
+    public void setPropVotes(Integer propVotes) {
         this.propVotes = propVotes;
     }
 

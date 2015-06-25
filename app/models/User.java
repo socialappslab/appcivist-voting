@@ -15,7 +15,7 @@ import assets.Pair;
 public class User {
 
     @Id
-    private int userID;
+    private Integer userID;
     private String userName;
 
     private ArrayList elections;
@@ -27,11 +27,11 @@ public class User {
 
 
 
-    public int getUserID() {
+    public Integer getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(Integer userID) {
         this.userID = userID;
     }
 
